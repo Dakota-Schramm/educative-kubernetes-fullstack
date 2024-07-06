@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  selector:
+    matchLabels:
+      project: kubernetes-project
+      tier: frontend
+      app: application
+  template:
+    metadata:
+      labels:
+        project: kubernetes-project
+        tier: frontend
+        app: application
+    spec:
+      containers:
+      - name: app-pod
+        image: educative1/multiple_deployments:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+                name: database-configmap
